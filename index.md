@@ -2,6 +2,7 @@
 
 ## Integer Over fow and Under fow
 
-``` uint a = 255;
+```
+    uint a = 255;
     a++;     
 ```
