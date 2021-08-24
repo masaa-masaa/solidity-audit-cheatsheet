@@ -1,8 +1,9 @@
 # Solidity Audit Cheatsheet
 
-## Integer Over fow and Under fow
+## Integer Over flow and Under flow
 
-```
-    uint a = 255;
-    a++;     
-```
+    ### Over flow Example
+            ```
+                uint a = 255;
+                a++;     
+            ```
