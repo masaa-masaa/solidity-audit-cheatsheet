@@ -45,6 +45,17 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 
 ## Frozen / Locked Ether <a name="Frozen-Locked-Ether"></a>
 
-Avoid receiving ether on the smart contract. No payable `function, constructor, receive or fallback` function.
+* Avoid receiving ether on the smart contract. No payable `function, constructor, receive or fallback` function.
 
-But ether can still be received on the contract if the contract address in the recipient of mining rewards or is passed as a parameter to the `selfdestruct(address payablecontractAddress)`
+* But ether can still be received on the contract if the contract address in the recipient of mining rewards or is passed as a parameter to the `selfdestruct(address payablecontractAddress)`
+
+* Implement a withdrawal function with access restriction: `onlyOwner` modifier pattern or [role based access](https://docs.openzeppelin.com/contracts/4.x/api/access) management.
+
+#### Withdrawal function example
+
+``` solidity
+ function withdraw(uint amount) public onlyOwner{	//or some other access control mechanism you like
+        payable(msg.sender).transfer(amount);
+    }
+```
+
