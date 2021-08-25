@@ -2,14 +2,14 @@
 
 ## Integer Over flow and Under flow
 
-#### Over flow Example
+#### Over flow example
 
  ```solidity
  uint8 a = 255;
  a++; //overflow error, 256 is not an unsigned int8. This will cause an integer overflow, b = 0.    
  ```
 
-#### Under flow Example
+#### Under flow example
 
 ```solidity
 uint8 a = 1;
@@ -21,4 +21,19 @@ uint8 b = a - 2; //underflow error, -1 is not an unsigned int8. This will cause 
 Check for integer overflows and underflows in transfer, mint and burn functions. Balances are mostly stored as `unit256`. 
 
 Use [library SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol) from [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts) for uint256.
+
+### Vulnerable Code example
+
+```solidity
+function transfer(address _to, uint256 _value) {
+    require(balanceOf[msg.sender] >= _value);
+    balanceOf[msg.sender] -= _value; //potential underflow
+    balanceOf[_to] += _value; //potential overflow 
+}
+```
+
+```solidity
+//another fix style
+require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
+```
 
