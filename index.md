@@ -1,19 +1,25 @@
 # Solidity Audit Cheat sheet
 
-## Integer Over flow and Under flow
+* ## [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer Over flow and Under flow)
+
+* ## Frozen / Locked Ether
+
+## [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer Over flow and Under flow)
 
 #### Over flow example
 
  ```solidity
  uint8 a = 255;
- a++; //overflow error, 256 is not an unsigned int8. This will cause an integer overflow, b = 0.    
+ a++; 
+ //overflow error, 256 is not an unsigned int8. This will cause an integer overflow, b = 0.    
  ```
 
 #### Under flow example
 
 ```solidity
 uint8 a = 1;
-uint8 b = a - 2; //underflow error, -1 is not an unsigned int8. This will cause an integer undeflow, b = 255
+uint8 b = a - 2; 
+//underflow error, -1 is not an unsigned int8. This will cause an integer undeflow, b = 255
 ```
 
 
@@ -27,8 +33,8 @@ Use [library SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/bl
 ```solidity
 function transfer(address _to, uint256 _value) {
     require(balanceOf[msg.sender] >= _value);
-    balanceOf[msg.sender] -= _value; //potential underflow
-    balanceOf[_to] += _value; //potential overflow 
+    balanceOf[msg.sender] -= _value; 				//potential underflow
+    balanceOf[_to] += _value; 						//potential overflow 
 }
 ```
 
@@ -36,4 +42,6 @@ function transfer(address _to, uint256 _value) {
 //another fix style
 require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 ```
+
+## Frozen / Locked Ether
 
