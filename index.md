@@ -1,8 +1,8 @@
 # Solidity Audit Cheat sheet
 
-* [Integer Over flow and Under flow](#Integer-Over-flow-and-Under-flow)
+* #### [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer-Over-flow-and-Under-flow)
 
-* ## Frozen / Locked Ether
+* #### [Frozen / Locked Ether](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Frozen-Locked-Ether)
 
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
@@ -34,7 +34,7 @@ Use [library SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/bl
 function transfer(address _to, uint256 _value) {
     require(balanceOf[msg.sender] >= _value);
     balanceOf[msg.sender] -= _value; 				//potential underflow
-    balanceOf[_to] += _value; 						//potential overflow 
+    balanceOf[_to] += _value; 					//potential overflow 
 }
 ```
 
@@ -43,5 +43,5 @@ function transfer(address _to, uint256 _value) {
 require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 ```
 
-## Frozen / Locked Ether
+## Frozen / Locked Ether <a name="Frozen-Locked-Ether"></a>
 
