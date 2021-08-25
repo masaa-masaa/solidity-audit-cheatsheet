@@ -1,10 +1,10 @@
 # Solidity Audit Cheat sheet
 
-* ## [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer Over flow and Under flow)
+* [Integer Over flow and Under flow](#Integer-Over-flow-and-Under flow)
 
 * ## Frozen / Locked Ether
 
-## [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer Over flow and Under flow)
+## Integer Over flow and Under flow<a name="Integer-Over-flow-and-Under flow"></a>
 
 #### Over flow example
 
