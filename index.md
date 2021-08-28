@@ -4,6 +4,8 @@
 
 * #### [Frozen / Locked Ether](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Frozen-Locked-Ether)
 
+* ### [Re-entrancy](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
+
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
 #### Over flow example
@@ -58,4 +60,8 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
         payable(msg.sender).transfer(amount);
  } //the function could end up withdrawing everything??
 ```
+
+##  Re-entrancy <a name="re-entrancy"></a>
+
+![](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/re-entrancy.png)
 
