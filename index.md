@@ -6,6 +6,8 @@
 
 * #### [Re-entrancy](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
 
+* #### [Logic control using address balance](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
+
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
 #### Over flow example
@@ -70,5 +72,23 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 * The calling function provides enough gas for the called function
 * Re-entrancy back into the calling functions finds that it has not updated state variables "balance"
 
+### Logic control using address balance  <a name="Logic-control-using-address-balance"></a>
 
+```solidity
+uint bal = address(this).balance
+if (bal == 0)
+	doSomeThing();
+```
+
+Assuming the contract cannot receive ether:
+
+* no payable function
+* no receive function
+* no payable fallback
+* constructor is not payable
+
+`bal` could still be positive:
+
+* Another contract could call `selfdestruct(your-contract-address)`, ether in that contract will be sent to your contract
+* `your-contract-address` could be used as recipient of miners fee
 
