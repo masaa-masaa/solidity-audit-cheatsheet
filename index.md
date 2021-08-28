@@ -4,7 +4,7 @@
 
 * #### [Frozen / Locked Ether](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Frozen-Locked-Ether)
 
-* ### [Re-entrancy](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
+* #### [Re-entrancy](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
 
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
@@ -64,4 +64,11 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 ##  Re-entrancy <a name="re-entrancy"></a>
 
 ![](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/re-entrancy.png)
+
+#### Conditions for re-entracy
+
+* The calling function provides enough gas for the called function
+* Re-entrancy back into the calling functions finds that it has not updated state variables "balance"
+
+
 
