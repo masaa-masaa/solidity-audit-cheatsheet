@@ -56,6 +56,6 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 ``` solidity
  function withdraw(uint amount) public onlyOwner{	//or some other access control mechanism you like
         payable(msg.sender).transfer(amount);
-    }
+ } //the function could end up withdrawing everything??
 ```
 
