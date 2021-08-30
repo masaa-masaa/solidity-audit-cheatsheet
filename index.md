@@ -8,6 +8,8 @@
 
 * #### [Logic control using address balance](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
 
+* #### [Unchecked Return Values For Low Level Calls](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Unchecked-Return-Values-For-Low-Level Calls)
+
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
 #### Over flow example
@@ -76,8 +78,8 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 
 ```solidity
 uint bal = address(this).balance
-if (bal == 0)
-	doSomeThing();
+if (bal == 0) 
+	doSomeThing(); 
 ```
 
 Assuming the contract cannot receive ether:
@@ -91,4 +93,33 @@ Assuming the contract cannot receive ether:
 
 * Another contract could call `selfdestruct(your-contract-address)`, ether in that contract will be sent to your contract
 * `your-contract-address` could be used as recipient of miners fee
+
+# Unchecked Return Values For Low Level Calls <a name="Unchecked-Return-Values-For-Low-Level Calls"></a>
+
+Solidity low level calls:
+
+```solidity
+<address payable>.transfer(uint256 amount)//to be avoided because it has no return types. What happened?
+<address payable>.send(uint256 amount) returns (bool) //sending ether to an address
+some-contract-address.call(bytes memory) returns (bool, bytes memory) //calling code to a contract, calling a function. To be avoided
+some-contract-address.delegatecall(bytes memory) returns (bool, bytes memory) //calling a library
+some-contract-address.staticcall(bytes memory) returns (bool, bytes memory)
+```
+
+Avoid using transfer when sending ether since it has no return values.
+
+Always check the returned values from low level calls.
+
+The low level calls will not trigger a revert on failure. 
+
+High level contract communication
+
+```solidity
+uint z = some-contract-address.someFunction(uint x, uint y);
+//processing contines based on the value of z
+```
+
+
+
+
 
