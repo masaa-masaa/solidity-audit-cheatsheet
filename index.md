@@ -14,6 +14,8 @@
 
 * #### Sensitive Data Storage
 
+* #### Unprotected selfDestruct Call
+
 ## Integer Over flow and Under flow 
 
 #### Over flow example
@@ -155,6 +157,16 @@ function getX(string memory _password) external returns(uint){ // the functions 
 ```
 
 Using the `web3.eth.getStorageAt(address, position [, defaultBlock] [, callback])` web3.js function to retrieve contract data.
+
+# Unprotected selfDestruct Call
+
+Calling the selfDestruct function on a contract without proper access control.
+
+```solidity
+function accidentallyKillMe()external { //no access control enforced
+    selfdestruct(msg.sender); // send all ether to your self
+  }
+```
 
 
 
