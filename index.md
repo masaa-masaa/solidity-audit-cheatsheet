@@ -8,7 +8,7 @@
 
 * #### [Logic control using address balance](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
 
-* #### [Unchecked Return Values For Low Level Calls](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Unchecked-Return-Values-For-Low-Level Calls)
+* #### [Unchecked Return Values For Low Level Calls](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Unchecked-Return-Values-For-Low-Level-Calls)
 
 ## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
 
@@ -94,7 +94,7 @@ Assuming the contract cannot receive ether:
 * Another contract could call `selfdestruct(your-contract-address)`, ether in that contract will be sent to your contract
 * `your-contract-address` could be used as recipient of miners fee
 
-# Unchecked Return Values For Low Level Calls <a name="Unchecked-Return-Values-For-Low-Level Calls"></a>
+# Unchecked Return Values For Low Level Calls  <a name="Unchecked-Return-Values-For-Low-Level-Calls"></a>
 
 Solidity low level calls:
 
