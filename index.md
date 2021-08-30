@@ -99,25 +99,33 @@ Assuming the contract cannot receive ether:
 Solidity low level calls:
 
 ```solidity
-<address payable>.transfer(uint256 amount)//to be avoided because it has no return types. What happened?
 <address payable>.send(uint256 amount) returns (bool) //sending ether to an address
-some-contract-address.call(bytes memory) returns (bool, bytes memory) //calling code to a contract, calling a function. To be avoided
-some-contract-address.delegatecall(bytes memory) returns (bool, bytes memory) //calling a library
-some-contract-address.staticcall(bytes memory) returns (bool, bytes memory)
+<address>.call(bytes memory) returns (bool, bytes memory) //calling code to a contract, calling a function. To be avoided
+<address>.delegatecall(bytes memory) returns (bool, bytes memory) //calling code in a library or another contract
+<address>.staticcall(bytes memory) returns (bool, bytes memory)
+
+//example
+function withdraw(uint256 _amount) public {
+	require(balances[msg.sender] >= _amount);
+	balances[msg.sender] -= _amount; //if the next line fails our current accounting is erroneous
+	msg.sender.send(_amount); //bad code since return value not checked
+}
+
+//Transfer triggers revert on failure
+function withdraw(uint256 _amount) public {
+	require(balances[msg.sender] >= _amount);
+	balances[msg.sender] -= _amount; //if the next line fails our accounting is rolled back
+	msg.sender.transfer(_amount);
+}
 ```
 
 Avoid using transfer when sending ether since it has no return values.
 
 Always check the returned values from low level calls.
 
-The low level calls will not trigger a revert on failure. 
+The low level calls do not trigger a revert on failure. 
 
-High level contract communication
 
-```solidity
-uint z = some-contract-address.someFunction(uint x, uint y);
-//processing contines based on the value of z
-```
 
 
 
