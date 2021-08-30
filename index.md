@@ -119,8 +119,6 @@ function withdraw(uint256 _amount) public {
 }
 ```
 
-Avoid using transfer when sending ether since it has no return values.
-
 Always check the returned values from low level calls.
 
 The low level calls do not trigger a revert on failure. 
