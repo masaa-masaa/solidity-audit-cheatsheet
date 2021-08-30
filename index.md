@@ -1,16 +1,20 @@
 # Solidity Audit Cheat sheet
 
-* #### [Integer Over flow and Under flow](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Integer-Over-flow-and-Under-flow)
+* #### Integer Over flow and Under flow
 
-* #### [Frozen / Locked Ether](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Frozen-Locked-Ether)
+* #### Frozen / Locked Ether
 
-* #### [Re-entrancy](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
+* #### Reentrancy
 
-* #### [Logic control using address balance](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#re-entrancy)
+* #### Logic control using address balance
 
-* #### [Unchecked Return Values For Low Level Calls](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/index.md#Unchecked-Return-Values-For-Low-Level-Calls)
+* #### Unchecked Return Values For Low Level Calls
 
-## Integer Over flow and Under flow <a name="Integer-Over-flow-and-Under-flow"></a>
+* #### Unspecified Function Visibility
+
+* #### Sensitive Data Storage
+
+## Integer Over flow and Under flow 
 
 #### Over flow example
 
@@ -49,7 +53,7 @@ function transfer(address _to, uint256 _value) {
 require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
 ```
 
-## Frozen / Locked Ether <a name="Frozen-Locked-Ether"></a>
+## Frozen / Locked Ether 
 
 * Avoid receiving ether on the smart contract. No payable `function, constructor, receive or fallback` function.
 
@@ -65,16 +69,16 @@ require(balanceOf[msg.sender] >= _value && balanceOf[_to] + _value >= bal
  } //the function could end up withdrawing everything??
 ```
 
-##  Re-entrancy <a name="re-entrancy"></a>
+##  Reentrancy 
 
 ![](https://github.com/masaa-masaa/solidity-audit-cheatsheet/blob/main/re-entrancy.png)
 
-#### Conditions for re-entracy
+#### Conditions for reentrancy
 
 * The calling function provides enough gas for the called function
-* Re-entrancy back into the calling functions finds that it has not updated state variables "balance"
+* Reentrancy back into the calling functions finds that it has not updated state variables "balance"
 
-### Logic control using address balance  <a name="Logic-control-using-address-balance"></a>
+### Logic control using address balance  
 
 ```solidity
 uint bal = address(this).balance
@@ -94,7 +98,7 @@ Assuming the contract cannot receive ether:
 * Another contract could call `selfdestruct(your-contract-address)`, ether in that contract will be sent to your contract
 * `your-contract-address` could be used as recipient of miners fee
 
-# Unchecked Return Values For Low Level Calls  <a name="Unchecked-Return-Values-For-Low-Level-Calls"></a>
+# Unchecked Return Values For Low Level Calls  
 
 Solidity low level calls:
 
@@ -123,7 +127,32 @@ Always check the returned values from low level calls.
 
 The low level calls do not trigger a revert on failure. 
 
+# Unspecified Function Visibility
 
+Functions without visibility specified are `public`.
+
+```solidity
+function withdrawAll() { //this is a public function, can be called by anyone
+        msg.sender.transfer(this.balance); //send all contracts ether to caller of this function
+}
+```
+
+The above function visibility should be set to external, public, internal or private plus access control applied to ensure that the caller has rights to withdraw.
+
+# Sensitive Data Storage
+
+The data store in a smart contract can be read by anyone with access to the blockchain data. Making the data private does not restrict external parties from reading the data it just ensures that inheriting contracts cannot access it.
+
+```solidity
+string password = "mypassword"; // the password can be read from the blockchain
+uint x = 1000; //x can be read from the block chain
+
+function getX(string memory _password) external returns(uint){ // the functions protects nothing with the password
+	if(keccak256(password) == keccak256(_password)){
+		return x;
+	}
+}
+```
 
 
 
