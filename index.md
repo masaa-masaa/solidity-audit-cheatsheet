@@ -145,7 +145,7 @@ The data store in a smart contract can be read by anyone with access to the bloc
 
 ```solidity
 string password = "mypassword"; // the password can be read from the blockchain
-uint x = 1000; //x can be read from the block chain
+uint x = 1000; //x can be read from the blockchain
 
 function getX(string memory _password) external returns(uint){ // the functions protects nothing with the password
 	if(keccak256(password) == keccak256(_password)){
@@ -154,7 +154,7 @@ function getX(string memory _password) external returns(uint){ // the functions 
 }
 ```
 
-
+Using the `web3.eth.getStorageAt(address, position [, defaultBlock] [, callback])` web3.js function to retrieve contract data.
 
 
 
