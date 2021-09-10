@@ -23,7 +23,7 @@
  ```solidity
  uint8 a = 255;
  a++; 
- //overflow error, 256 is not an unsigned int8. This will cause an integer overflow, b = 0.    
+ //overflow error, 256 is not an unsigned int8.     
  ```
 
 #### Under flow example
